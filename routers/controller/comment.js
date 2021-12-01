@@ -44,7 +44,7 @@ const updateComment = (req, res) => {
     });
 };
 
-//setting a task as deleted. ps: its permenant
+//setting a task as deleted.
 const delComment = (req, res) => {
   const { id } = req.params; //post id
 

@@ -1,3 +1,8 @@
+# Basic Social Media project
+In this project I worked on a full social media crud operation, users can read all posts & post thier own posts but no one can delete or update other users <ins>posts or comments</ins>.
+Only ***admin*** can delete any *Post*, *Comment* or even a whole **User**.
+Each **post** can have **comments** and **likes**.
+
 # Registration & login Authentication
 
 This project will help you set the basic steps for authenticating users securely useing:
