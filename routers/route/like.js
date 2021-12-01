@@ -1,9 +1,10 @@
-// const express = require("express");
-// const likeRouter = express.Router();
+const express = require("express");
+const likeRouter = express.Router();
+const authentication = require("./../middlewares/authentication");
 
-// const { like } = require("./../controller/like");
+const { newLike } = require("./../controller/like");
 
-// likeRouter.post("/like", like);
-// // likeRouter.get("/roles", getRoles);
+likeRouter.post("/like/:id", authentication, newLike);
+// likeRouter.get("/roles", getRoles);
 
-// module.exports = likeRouter;
+module.exports = likeRouter;
