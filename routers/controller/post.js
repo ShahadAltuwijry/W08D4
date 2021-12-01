@@ -26,19 +26,6 @@ const post = (req, res) => {
     });
 };
 
-//getting all posts even if its deleted or completed
-// const allTasksByUserId = (req, res) => {
-//   taskModel
-//     .find({ userId: req.addedToken.id })
-//     .then((result) => {
-//       res.status(200).json(result);
-//       console.log(result);
-//     })
-//     .catch((err) => {
-//       res.send(err);
-//     });
-// };
-
 //updating a post.
 const updatePost = (req, res) => {
   const { id } = req.params; //post id
@@ -58,7 +45,7 @@ const updatePost = (req, res) => {
     });
 };
 
-//setting a task as deleted. ps: its permenant
+//setting a post as deleted. ps: toggle
 const softDelPost = (req, res) => {
   const { id } = req.params; //post id
 
@@ -95,7 +82,7 @@ const softDelPost = (req, res) => {
   });
 };
 
-//getting only existing and uncompleted tasks
+//getting existing posts
 const getPosts = (req, res) => {
   const { id } = req.params; //user id
 
