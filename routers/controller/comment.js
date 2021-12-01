@@ -53,15 +53,14 @@ const delComment = (req, res) => {
   });
 };
 
-//getting only existing and uncompleted tasks
+//getting comment
 const getComment = (req, res) => {
-  const { id } = req.params; //user id
+  const { id } = req.params; //comment id
 
   commentModel
     .find({
-      userId: id,
+      _id: id,
       //  userId: req.addedToken.id,
-      isDel: false,
     })
     .then((result) => {
       res.status(200).json(result);
