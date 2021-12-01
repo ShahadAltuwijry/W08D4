@@ -1,6 +1,7 @@
 const userModel = require("./../../db/module/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const SALT = Number(process.env.SALT);
 const secret = process.env.SECRETKEY;
@@ -43,7 +44,7 @@ const login = (req, res) => {
       if (result) {
         if (logMethod === result.email || logMethod === result.userName) {
           const savedPassword = await bcrypt.compare(password, result.password);
-          const payload = { role: result.role };
+          const payload = { role: result.role, id: result._id };
           const token = jwt.sign(payload, secret);
 
           if (savedPassword) {

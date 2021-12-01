@@ -1,4 +1,5 @@
 const express = require("express");
+const authentication = require("./../middlewares/authentication");
 const commentRouter = express.Router();
 
 const {
@@ -8,9 +9,9 @@ const {
   delComment,
 } = require("./../controller/comment");
 
-commentRouter.post("/comment/:id", newComment);
-commentRouter.put("/updateComment/:id", updateComment); //updating post desc and timestamp
-commentRouter.get("/getComment/:id", getComment); //getting all undeleted posts
-commentRouter.put("/delComment/:id", delComment); // delete comment
+commentRouter.post("/comment/:id", authentication, newComment);
+commentRouter.put("/updateComment/:id", authentication, updateComment); //updating post desc and timestamp
+commentRouter.get("/getComment/:id", authentication, getComment); //getting all undeleted posts
+commentRouter.put("/delComment/:id", authentication, delComment); // delete comment
 
 module.exports = commentRouter;

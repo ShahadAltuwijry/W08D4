@@ -9,7 +9,7 @@ const newComment = (req, res) => {
   const newComment = new commentModel({
     desc,
 
-    //   userId: req.addedToken.id,
+    userId: req.addedToken.id,
     postId: id,
     timeStamp: Date(),
   });
