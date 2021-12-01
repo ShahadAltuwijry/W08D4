@@ -1,4 +1,6 @@
 const userModel = require("./../../db/module/user");
+const postModel = require("./../../db/module/post");
+const commentModel = require("./../../db/module/comment");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -109,6 +111,13 @@ const deleteUser = (req, res) => {
         });
     }
   });
+};
+
+//admin deleteing any posts or comments
+const deleteContent = (req, res) => {
+  const { id } = req.params;
+
+  
 };
 
 module.exports = { registration, login, getUsers, deleteUser };

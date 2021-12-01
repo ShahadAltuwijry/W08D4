@@ -49,7 +49,14 @@ const delComment = (req, res) => {
   const { id } = req.params; //post id
 
   commentModel.findByIdAndDelete({ _id: id }).then((result) => {
-    res.status(200).send("comment is deleted");
+    if (
+      result.userId == req.addedToken.id ||
+      req.addedToken.role == "61a73488b03855b1f60c356f"
+    ) {
+      res.status(200).send("comment has been deleted");
+    } else {
+      res.status(400).send("unauthorized user");
+    }
   });
 };
 

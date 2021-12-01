@@ -63,7 +63,10 @@ const softDelPost = (req, res) => {
   const { id } = req.params; //post id
 
   postModel.findById({ _id: id }).then((result) => {
-    if (req.addedToken.id == result.userId) {
+    if (
+      result.userId == req.addedToken.id ||
+      req.addedToken.role == "61a73488b03855b1f60c356f"
+    ) {
       if (result.isDel != true) {
         postModel
           .findByIdAndUpdate(
