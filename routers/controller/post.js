@@ -150,12 +150,16 @@ const deletePostComment = (req, res) => {
   postModel
     .findById({ _id: postId })
     .then((postResult) => {
-      if (postResult.userId == req.addedToken.id) {
+      if (postResult.userId == req.addedToken.id) { //يقارن اليوزر ايدي عند البوست باليوزر ايدي بالبايلود 
         console.log(postResult.userId);
-        console.log(req.addedToken.id, "first If");
+        console.log(req.addedToken.id);
+        console.log("first If");
         commentModel.findById({ _id: commentId }).then((comResult) => {
-          if (postResult._id == comResult.postId) {
-            console.log(comResult, "second If");
+          console.log(postResult._id);
+          console.log(comResult.postId);
+          console.log("second If");
+          if (postResult._id == comResult.postId) { //يقارن البوست ايدي بالبوست ايدي بالكومنت
+            console.log("you'r in!!");
             commentModel
               .findByIdAndDelete({ _id: commentId })
               .then((result) => {
@@ -163,7 +167,7 @@ const deletePostComment = (req, res) => {
                 res.status(200).json("comment have been deleted");
               });
           } else {
-            res.status(400).send("you are not allowed to delete that :/");
+            res.status(400).send("you are not allowed to delete it :/");
           }
         });
       } else {
