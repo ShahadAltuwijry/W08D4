@@ -1,5 +1,5 @@
 const postModel = require("./../../db/module/post");
-// const userModel = require("./../../db/module/user");
+const commentModel = require("./../../db/module/comment");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -143,10 +143,43 @@ const onePost = (req, res) => {
     });
 };
 
+//user can delete any comment on his post
+const deletePostComment = (req, res) => {
+  const { postId, commentId } = req.params;
+
+  postModel
+    .findById({ _id: postId })
+    .then((postResult) => {
+      if (postResult.userId == req.addedToken.id) {
+        console.log(postResult.userId);
+        console.log(req.addedToken.id, "first If");
+        commentModel.findById({ _id: commentId }).then((comResult) => {
+          if (postResult._id == comResult.postId) {
+            console.log(comResult, "second If");
+            commentModel
+              .findByIdAndDelete({ _id: commentId })
+              .then((result) => {
+                console.log("last round");
+                res.status(200).json("comment have been deleted");
+              });
+          } else {
+            res.status(400).send("you are not allowed to delete that :/");
+          }
+        });
+      } else {
+        res.status(400).send("you are not allowed to do that :/");
+      }
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    });
+};
+
 module.exports = {
   post,
   updatePost,
   softDelPost,
   getPosts,
   onePost,
+  deletePostComment,
 };
