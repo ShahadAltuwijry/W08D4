@@ -150,7 +150,8 @@ const deletePostComment = (req, res) => {
   postModel
     .findById({ _id: postId })
     .then((postResult) => {
-      if (postResult.userId == req.addedToken.id) { //يقارن اليوزر ايدي عند البوست باليوزر ايدي بالبايلود 
+      if (postResult.userId == req.addedToken.id) {
+        //يقارن اليوزر ايدي عند البوست باليوزر ايدي بالبايلود
         console.log(postResult.userId);
         console.log(req.addedToken.id);
         console.log("first If");
@@ -158,7 +159,8 @@ const deletePostComment = (req, res) => {
           console.log(postResult._id);
           console.log(comResult.postId);
           console.log("second If");
-          if (postResult._id == comResult.postId) { //يقارن البوست ايدي بالبوست ايدي بالكومنت
+          if (postResult._id.toString() == comResult.postId.toString()) {
+            //يقارن البوست ايدي بالبوست ايدي بالكومنت
             console.log("you'r in!!");
             commentModel
               .findByIdAndDelete({ _id: commentId })
