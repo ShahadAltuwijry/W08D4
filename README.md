@@ -1,7 +1,12 @@
+
 # Basic Social Media project
 In this project I worked on a full social media crud operation, users can read all posts & post thier own posts but no one can delete or update other users <ins>posts or comments</ins>.
 Only ***admin*** can delete any *Post*, *Comment* or even a whole **User**.
 Each **post** can have **comments** and **likes**.
+
+# Project ER Diagram
+![Untitled Diagram drawio (3)](https://user-images.githubusercontent.com/92247858/145247446-0b9d99a2-7b22-4857-9af6-34ef4f4c0374.png)
+
 
 # Registration & login Authentication
 
