@@ -4,6 +4,9 @@ In this project I worked on a full social media crud operation, users can read a
 Only ***admin*** can delete any *Post*, *Comment* or even a whole **User**.
 Each **post** can have **comments** and **likes**.
 
+# Project UML Diagram
+![Untitled Diagram drawio (2)](https://user-images.githubusercontent.com/92247858/145268047-90cf6ced-3125-4789-b701-aa4ba8db90d3.png)
+
 # Project ER Diagram
 ![Untitled Diagram drawio (3)](https://user-images.githubusercontent.com/92247858/145247446-0b9d99a2-7b22-4857-9af6-34ef4f4c0374.png)
 
