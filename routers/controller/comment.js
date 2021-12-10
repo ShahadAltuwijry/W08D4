@@ -83,17 +83,25 @@ const getAll = (req, res) => {
   const { id } = req.params;
   try {
     let fullPost = [];
-    postModel.findOne({ _id: id }).then((result) => {
-      fullPost.push(result);
-      commentModel.find({ postId: id }).then((item) => {
-        fullPost.push(item);
-        likeModel.find({ postId: id }).then((item) => {
+    postModel
+      .findOne({ _id: id })
+      .populate("userId")
+      .then((result) => {
+        fullPost.push(result);
+        commentModel.find({ postId: id }).then((item) => {
           fullPost.push(item);
+          likeModel.find({ postId: id }).then((item) => {
+            fullPost.push(item);
 
-          res.status(200).json(fullPost);
+            res.status(200).json(fullPost);
+          });
         });
       });
-    });
+    // commentModel ---------> this will only get user info and the post but we need the post and comments and the likes
+    //   .find()
+    //   .populate("userId","")
+    //   .populate("postId")
+    //   .then((result) => res.status(200).json(result));
   } catch (error) {
     res.status(404).json(error);
   }

@@ -1,11 +1,12 @@
 const likeModel = require("./../../db/module/like");
 
 const newLike = (req, res) => {
-  const { id } = req.params;
+  console.log(req, "like");
+  const { id, userId } = req.params;
   try {
     likeModel
       .findOneAndDelete({
-        $and: [{ postId: id }, { userId: req.addedToken.id }],
+        $and: [{ postId: id }, { userId: userId }],
       })
       .then((result) => {
         if (result) {
@@ -13,7 +14,7 @@ const newLike = (req, res) => {
         } else {
           const newLike = new likeModel({
             postId: id,
-            userId: req.addedToken.id,
+            userId: userId,
           });
 
           newLike

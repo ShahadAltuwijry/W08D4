@@ -58,7 +58,7 @@ const login = (req, res) => {
           res.status(400).json("invalid email or password");
         }
       } else {
-        res.status(404).json("email isn registred");
+        res.status(404).json("user is not registred or incorrect");
       }
     });
 };

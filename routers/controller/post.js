@@ -1,10 +1,5 @@
 const postModel = require("./../../db/module/post");
 const commentModel = require("./../../db/module/comment");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
-
-const secret = process.env.SECRETKEY;
 
 //posting a new post
 const post = (req, res) => {
@@ -19,7 +14,7 @@ const post = (req, res) => {
     userId: id,
     timeStamp: Date(),
   });
-  console.log(req.addedToken);
+  console.log(req);
   newPost
     .save()
     .then((result) => {
@@ -35,7 +30,6 @@ const post = (req, res) => {
 const updatePost = (req, res) => {
   const { id } = req.params; //post id
   const { desc } = req.body;
-
   // console.log(req);
 
   postModel.findById({ _id: id }).then((item) => {
@@ -107,11 +101,8 @@ const getPosts = (req, res) => {
   const { id } = req.params; //user id
 
   postModel
-    .find({
-      userId: id,
-      //  userId: req.addedToken.id,
-      isDel: false,
-    })
+    .find({ userId: id })
+    .populate("userId", "userName _id")
     .then((result) => {
       res.status(200).json(result);
       console.log(result);
@@ -119,6 +110,28 @@ const getPosts = (req, res) => {
     .catch((err) => {
       res.send(err);
     });
+};
+
+const allPosts = (req, res) => {
+  // console.log(req);
+
+  try {
+    postModel
+      .find({ isDel: false })
+      .populate("userId", "userName _id")
+      .then((result) => {
+        if (result) {
+          res.status(200).json(result);
+        } else {
+          res.send("not found");
+        }
+      })
+      .catch((err) => {
+        res.send(err);
+      });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
 };
 
 //get one post | works only if not deleted & for all users
@@ -167,7 +180,7 @@ const deletePostComment = (req, res) => {
                 .findByIdAndDelete({ _id: commentId })
                 .then((result) => {
                   console.log("last round");
-                  res.status(200).json("comment have been deleted");
+                  res.status(200).json(result.desc, " have been deleted");
                 });
             } else {
               res.status(400).send("you are not allowed to delete it :/");
@@ -190,6 +203,7 @@ module.exports = {
   updatePost,
   softDelPost,
   getPosts,
+  allPosts,
   onePost,
   deletePostComment,
 };
