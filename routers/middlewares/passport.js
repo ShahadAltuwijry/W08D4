@@ -76,7 +76,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((user, done) => {
-  DOMPointReadOnly(null, user);
+  done(null, user);
 });
 
 // passport.use(new GoogleStrat({

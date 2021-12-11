@@ -102,10 +102,10 @@ const getPosts = (req, res) => {
 
   postModel
     .find({ userId: id })
-    .populate("userId", "userName _id")
+    .populate("userId", "userName _id avatar")
     .then((result) => {
       res.status(200).json(result);
-      // console.log(result);
+      console.log(result);
     })
     .catch((err) => {
       res.send(err);
@@ -118,7 +118,7 @@ const allPosts = (req, res) => {
   try {
     postModel
       .find({ isDel: false })
-      .populate("userId", "userName _id")
+      .populate("userId", "userName _id avatar")
       .then((result) => {
         if (result) {
           res.status(200).json(result);

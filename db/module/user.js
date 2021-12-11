@@ -21,7 +21,11 @@ const user = new mongoose.Schema({
   key: { type: Number },
   confirmed: { type: Boolean, default: false },
   password: { type: String, required: true },
-  avatar: { type: String, default: "" },
+  avatar: {
+    type: String,
+    default:
+      "https://firebasestorage.googleapis.com/v0/b/project-2-4f59d.appspot.com/o/no-photo-large-m.jpg?alt=media&token=aacc1095-a755-4441-9e92-4a2931e2a78e",
+  },
   isDel: { type: Boolean, default: false },
   role: {
     type: mongoose.Schema.Types.ObjectId,
