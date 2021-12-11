@@ -8,6 +8,8 @@ const nodemailer = require("nodemailer");
 
 const SALT = Number(process.env.SALT);
 const secret = process.env.SECRETKEY;
+const EMAIL = process.env.EMAIL;
+const PASS = process.env.PASS;
 
 //registration for all
 const registration = async (req, res) => {
@@ -22,11 +24,11 @@ const registration = async (req, res) => {
       secure: true,
       requireTLS: true,
       auth: {
-        user: "sftu.6199@gmail.com",
-        pass: "112233Aa",
+        user: EMAIL,
+        pass: PASS,
       },
     });
-
+    console.log(EMAIL, "-", PASS);
     const newUser = new userModel({
       userName,
       email: savedEmail,
@@ -86,7 +88,7 @@ const login = (req, res) => {
               res.status(200).json({ result, token });
             } else {
               res
-                .status(400)
+                .status(408)
                 .json("user not confirmed, please check your email");
             }
           } else {
@@ -112,6 +114,27 @@ const getUsers = (req, res) => {
       res.send(err);
     });
 };
+//----------------------------------------
+
+//set user as confirmed
+const confirmed = (req, res) => {
+  const { id } = req.params;
+
+  userModel
+    .findByIdAndUpdate(
+      { _id: id },
+      { $set: { confirmed: true } },
+      { new: true }
+    )
+    .then((result) => {
+      // console.log(result);
+      res.status(200).json(result);
+    })
+    .catch((err) => {
+      res.status(404).send("error message:", err.message);
+    });
+};
+//-----------------------------------------
 
 //soft deleting a user for admins. ps: toggle
 const deleteUser = (req, res) => {
@@ -127,7 +150,7 @@ const deleteUser = (req, res) => {
         )
         .then((result) => {
           res.status(200).json(result);
-          console.log(result);
+          // console.log(result);
         })
         .catch((err) => {
           res.send(err);
@@ -141,7 +164,7 @@ const deleteUser = (req, res) => {
         )
         .then((result) => {
           res.status(200).json(result);
-          console.log(result);
+          // console.log(result);
         })
         .catch((err) => {
           res.send(err);
@@ -155,4 +178,4 @@ const deleteContent = (req, res) => {
   const { id } = req.params;
 };
 
-module.exports = { registration, login, getUsers, deleteUser };
+module.exports = { registration, login, confirmed, getUsers, deleteUser };

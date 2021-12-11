@@ -18,7 +18,7 @@ const user = new mongoose.Schema({
       "Please fill a valid email address",
     ],
   },
-  key: { type: Number, required: true },
+  key: { type: Number },
   confirmed: { type: Boolean, default: false },
   password: { type: String, required: true },
   avatar: { type: String, default: "" },

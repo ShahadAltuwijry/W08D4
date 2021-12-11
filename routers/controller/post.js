@@ -14,12 +14,12 @@ const post = (req, res) => {
     userId: id,
     timeStamp: Date(),
   });
-  console.log(req);
+  // console.log(req);
   newPost
     .save()
     .then((result) => {
       res.send(result);
-      console.log(result);
+      // console.log(result);
     })
     .catch((err) => {
       res.send(err);
@@ -70,7 +70,7 @@ const softDelPost = (req, res) => {
           )
           .then((result) => {
             res.status(200).json(result);
-            console.log(result);
+            // console.log(result);
           })
           .catch((err) => {
             res.send(err);
@@ -84,7 +84,7 @@ const softDelPost = (req, res) => {
           )
           .then((result) => {
             res.status(200).json(result);
-            console.log(result);
+            // console.log(result);
           })
           .catch((err) => {
             res.send(err);
@@ -105,7 +105,7 @@ const getPosts = (req, res) => {
     .populate("userId", "userName _id")
     .then((result) => {
       res.status(200).json(result);
-      console.log(result);
+      // console.log(result);
     })
     .catch((err) => {
       res.send(err);

@@ -1,7 +1,7 @@
 const likeModel = require("./../../db/module/like");
 
 const newLike = (req, res) => {
-  console.log(req, "like");
+  // console.log(req, "like");
   const { id, userId } = req.params;
   try {
     likeModel
