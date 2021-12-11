@@ -22,7 +22,7 @@ const registration = async (req, res) => {
       secure: true,
       requireTLS: true,
       auth: {
-        user: "stfu.6199@Gmail.com",
+        user: "sftu.6199@gmail.com",
         pass: "112233Aa",
       },
     });
