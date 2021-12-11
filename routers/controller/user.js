@@ -26,9 +26,11 @@ const registration = async (req, res) => {
     newUser
       .save()
       .then((result) => {
+        // console.log(result);
         res.json(result);
       })
       .catch((err) => {
+        console.log(err, "email errorrr");
         res.send(err.message);
       });
   } catch (error) {
@@ -69,7 +71,6 @@ const getUsers = (req, res) => {
     .find({})
     .then((result) => {
       res.status(200).json(result);
-      console.log(result);
     })
     .catch((err) => {
       res.send(err);
@@ -116,8 +117,6 @@ const deleteUser = (req, res) => {
 //admin deleteing any posts or comments
 const deleteContent = (req, res) => {
   const { id } = req.params;
-
-  
 };
 
 module.exports = { registration, login, getUsers, deleteUser };

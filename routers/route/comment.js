@@ -10,7 +10,7 @@ const {
   getAll,
 } = require("./../controller/comment");
 
-commentRouter.post("/comment/:id", authentication, newComment);
+commentRouter.post("/comment/:id/:userId", newComment);
 commentRouter.put("/updateComment/:id", authentication, updateComment); //updating post desc and timestamp
 commentRouter.get("/getComment/:id", authentication, getComment); //getting all undeleted posts
 commentRouter.put("/delComment/:id", authentication, delComment); // delete comment

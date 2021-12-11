@@ -4,12 +4,12 @@ const likeModel = require("./../../db/module/like");
 
 //posting a new post
 const newComment = (req, res) => {
-  const { id } = req.params; //post id
+  const { id, userId } = req.params; //post id
   const { desc } = req.body;
 
   const newComment = new commentModel({
     desc,
-    userId: req.addedToken.id,
+    userId: userId,
     postId: id,
     timeStamp: Date(),
   });
@@ -88,14 +88,20 @@ const getAll = (req, res) => {
       .populate("userId")
       .then((result) => {
         fullPost.push(result);
-        commentModel.find({ postId: id }).then((item) => {
-          fullPost.push(item);
-          likeModel.find({ postId: id }).then((item) => {
+        commentModel
+          .find({ postId: id })
+          .populate("userId", "userName")
+          .then((item) => {
             fullPost.push(item);
+            likeModel
+              .find({ postId: id })
+              .populate("userId", "userName")
+              .then((item) => {
+                fullPost.push(item);
 
-            res.status(200).json(fullPost);
+                res.status(200).json(fullPost);
+              });
           });
-        });
       });
     // commentModel ---------> this will only get user info and the post but we need the post and comments and the likes
     //   .find()
