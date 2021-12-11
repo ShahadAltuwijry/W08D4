@@ -4,6 +4,7 @@ const commentModel = require("./../../db/module/comment");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const nodemailer = require("nodemailer");
 
 const SALT = Number(process.env.SALT);
 const secret = process.env.SECRETKEY;
@@ -15,19 +16,48 @@ const registration = async (req, res) => {
   const savedEmail = email.toLowerCase();
   const savedPassword = await bcrypt.hash(password, SALT);
   try {
+    let mailTransporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      requireTLS: true,
+      auth: {
+        user: "stfu.6199@Gmail.com",
+        pass: "112233Aa",
+      },
+    });
+
     const newUser = new userModel({
       userName,
       email: savedEmail,
       avatar,
       password: savedPassword,
+      key: Math.floor(1000 + Math.random() * 9000),
       role,
     });
 
     newUser
       .save()
       .then((result) => {
+        let mailDetails = {
+          from: "stfu.6199@gmail.com",
+          to: result.email,
+          subject: `hello ${result.userName}`,
+          text: `This is a message to confirm your identity please write this code: ${result.key} to confirm your email. `,
+        };
+        console.log(mailDetails, "mailDetails");
+        mailTransporter.sendMail(mailDetails, (err, data) => {
+          if (err) {
+            console.log("error:", err.message);
+            console.log(data);
+            res.status(400).json(err.message);
+          } else {
+            console.log("Email sent successfully");
+            res.json(result);
+          }
+        });
+
         // console.log(result);
-        res.json(result);
       })
       .catch((err) => {
         console.log(err, "email errorrr");
@@ -52,7 +82,13 @@ const login = (req, res) => {
           const token = jwt.sign(payload, secret);
 
           if (savedPassword) {
-            res.status(200).json({ result, token });
+            if (result.confirmed === true) {
+              res.status(200).json({ result, token });
+            } else {
+              res
+                .status(400)
+                .json("user not confirmed, please check your email");
+            }
           } else {
             res.status(400).json("invalid email or password");
           }

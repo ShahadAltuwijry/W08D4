@@ -18,6 +18,8 @@ const user = new mongoose.Schema({
       "Please fill a valid email address",
     ],
   },
+  key: { type: Number, required: true },
+  confirmed: { type: Boolean, default: false },
   password: { type: String, required: true },
   avatar: { type: String, default: "" },
   isDel: { type: Boolean, default: false },
