@@ -92,13 +92,13 @@ const login = (req, res) => {
                 .json("user not confirmed, please check your email");
             }
           } else {
-            res.status(402).json("invalid email or passwordd");
+            res.json("invalid email or passwordd");
           }
         } else {
-          res.status(403).json("invalid email or password");
+          res.json("invalid email or password");
         }
       } else {
-        res.status(404).json("user is not registred or incorrect");
+        res.json("user is not registred or incorrect");
       }
     });
 };
