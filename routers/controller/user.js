@@ -92,7 +92,7 @@ const login = (req, res) => {
                 .json("user not confirmed, please check your email");
             }
           } else {
-            res.json("invalid email or passwordd");
+            res.json("invalid email or password");
           }
         } else {
           res.json("invalid email or password");
