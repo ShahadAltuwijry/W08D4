@@ -46,17 +46,21 @@ const updateComment = (req, res) => {
 
 //setting a task as deleted.
 const delComment = (req, res) => {
-  const { id } = req.params; //post id
+  const { id } = req.params; //comment id
 
   commentModel.findByIdAndDelete({ _id: id }).then((result) => {
-    if (
-      result.userId == req.addedToken.id ||
-      req.addedToken.role == "61a73488b03855b1f60c356f"
-    ) {
+    // if (
+    //   // result.userId == req.addedToken.id ||
+    //   // req.addedToken.role == "61a73488b03855b1f60c356f"
+    // ) {
+    try {
+      console.log(result);
       res.status(200).send("comment has been deleted");
-    } else {
-      res.status(400).send("unauthorized user");
+    } catch (error) {
+      res.status(400).json(error.message, "unauthorized user");
     }
+    // } else {
+    // }
   });
 };
 
@@ -109,7 +113,7 @@ const getAll = (req, res) => {
     //   .populate("postId")
     //   .then((result) => res.status(200).json(result));
   } catch (error) {
-    res.status(404).json(error);
+    res.status(404).json(error.message);
   }
 };
 
