@@ -118,7 +118,7 @@ const allPosts = (req, res) => {
   try {
     postModel
       .find({ isDel: false })
-      .populate("userId", "userName _id avatar")
+      .populate("userId", "userName _id avatar role")
       .then((result) => {
         if (result) {
           res.status(200).json(result);
