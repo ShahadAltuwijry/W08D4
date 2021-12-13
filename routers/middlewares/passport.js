@@ -12,11 +12,10 @@ const SECRETKEY = process.env.SECRETKEY;
 passport.use(
   new GoogleStrategy(
     {
-      callbackURL://this was on local host if it crashed put it back
-        "https://social-app-backend.herokuapp.com/auth/google/callback",
-      clientID:
-        "186579919465-58fvchi49hbf0f62910cqndnuc4gjsgc.apps.googleusercontent.com",
-      clientSecret: "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",
+      //this was on local host if it crashed put it back
+      callbackURL: process.env.AUTH_URL,
+      clientID: process.env.CLIENT_ID,
+      clientSecret: process.env.CLIENT_SECRET,
       passReqToCallback: true,
     },
     async (request, accessToken, refreshToken, profile, done) => {
