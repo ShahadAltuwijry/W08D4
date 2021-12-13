@@ -10,6 +10,9 @@ const {
   confirmed,
   getUsers,
   deleteUser,
+  resetPass,
+  forgotPass,
+  oneUser,
 } = require("./../controller/user");
 const passport = require("passport");
 
@@ -28,6 +31,9 @@ userRouter.get(
   }
 );
 userRouter.get("/users", getUsers);
+userRouter.get("/oneUser/:id", oneUser);
 userRouter.put("/delUser/:id", authentication, authorization, deleteUser);
+userRouter.post("/resetPass/:id", resetPass);
+userRouter.post("/forgotPass", forgotPass);
 
 module.exports = userRouter;

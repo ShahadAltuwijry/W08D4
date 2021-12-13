@@ -21,6 +21,7 @@ const user = new mongoose.Schema({
   key: { type: Number },
   confirmed: { type: Boolean, default: false },
   password: { type: String, required: true },
+  resetCode: { type: Number, default: 0 },
   avatar: {
     type: String,
     default:
