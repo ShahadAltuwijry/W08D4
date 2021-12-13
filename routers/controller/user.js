@@ -88,9 +88,7 @@ const login = (req, res) => {
             if (result.confirmed === true) {
               res.status(200).json({ result, token });
             } else {
-              res
-                .status(408)
-                .json("user not confirmed, please check your email");
+              res.json("user not confirmed, please check your email");
             }
           } else {
             res.json("invalid email or password");
@@ -206,7 +204,7 @@ const forgotPass = (req, res) => {
           if (err) {
             // console.log("error:", err.message);
             // console.log(data);
-            res.status(400).json(err.message);
+            res.json(err.message);
           } else {
             // console.log("Email sent successfully");
             res.json(result);
@@ -216,10 +214,10 @@ const forgotPass = (req, res) => {
         // console.log(mailDetails, "sent successfuly");
       })
       .catch((err) => {
-        res.status(404).json(err);
+        res.json(err.message);
       });
   } catch (error) {
-    res.status(404).json("an error had occurred:", error.message);
+    res.json("an error had occurred:", error.message);
   }
 };
 
