@@ -48,7 +48,7 @@ const registration = async (req, res) => {
           subject: `hello ${result.userName}`,
           text: `This is a message to confirm your identity please write this code: ${result.key} to confirm your email. `,
         };
-        console.log(mailDetails, "mailDetails");
+        // console.log(mailDetails, "mailDetails");
         mailTransporter.sendMail(mailDetails, (err, data) => {
           if (err) {
             console.log("error:", err.message);
@@ -63,7 +63,7 @@ const registration = async (req, res) => {
         // console.log(result);
       })
       .catch((err) => {
-        console.log(err, "email errorrr");
+        // console.log(err, "email errorrr");
         res.send(err.message);
       });
   } catch (error) {
@@ -190,7 +190,7 @@ const forgotPass = (req, res) => {
     });
 
     let code = Math.floor(1000 + Math.random() * 9000);
-    console.log(code);
+    // console.log(code);
 
     userModel
       .findOneAndUpdate({ email: email }, { $set: { resetCode: code } })
@@ -204,16 +204,16 @@ const forgotPass = (req, res) => {
 
         mailTransporter.sendMail(mailDetails, (err, data) => {
           if (err) {
-            console.log("error:", err.message);
-            console.log(data);
+            // console.log("error:", err.message);
+            // console.log(data);
             res.status(400).json(err.message);
           } else {
-            console.log("Email sent successfully");
+            // console.log("Email sent successfully");
             res.json(result);
           }
         });
         res.status(200).json("sent successfuly");
-        console.log(mailDetails, "sent successfuly");
+        // console.log(mailDetails, "sent successfuly");
       })
       .catch((err) => {
         res.status(404).json(err);
@@ -238,7 +238,7 @@ const resetPass = async (req, res) => {
         { new: true }
       )
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         res.status(200).json("password updated successfully");
       })
       .catch((err) => {
